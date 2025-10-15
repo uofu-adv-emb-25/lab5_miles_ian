@@ -1,5 +1,5 @@
 # This is the main binary. List your C files here.
-set(execName "task_delay")
+set(execName "program")
 
 add_executable(${execName}
     task_delay.c

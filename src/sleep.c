@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <pico/stdlib.h>
+#include "config.h"
 
 int main(void)
 {
