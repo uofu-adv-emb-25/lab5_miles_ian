@@ -1,8 +1,30 @@
-###task_delay Measurements:
+#### task_delay w/o Busy Loop
+Jitter (from std dev) = ~0 ms
+Drift: 0.0017% slower
 
-Jitter = StdDev of Period: 8 ns over 30 mins
-Drift = 16 uHz over 30 mins (basically 0)
-
+#### task_delay w/ Busy Loop
 Jitter = 148.0004 ms - 20 ms = 128.0004 ms
-Drift = 50 Hz - 6.7567 Hz = 43.2433 Hz drift per second
-Drift over an hour = 155,675.88 Hz
+Drift: 86.5% slower
+
+#### Sleep w/o Busy Loop
+Jitter (from std dev) = ~0 ms
+Drift: 0.0017% slower
+
+#### Sleep w/ Busy Loop
+Jitter = 148.0004 ms - 20 ms = 128.0004 ms
+Drift: 86.5% slower
+
+#### Timer w/o Busy Loop
+Jitter (from std dev) = ~0 ms
+Drift: 0.0017% slower
+
+#### Timer w/ Busy Loop
+Jitter = 352.0104 ms - 20 ms = 332.0104 ms
+Drift = 94.32% slower
+
+#### gpio_interrupt delay w/o Busy Loop
+The delay between the sync signal and the board output was negligable (~0 ms)
+
+#### gpio_interrupt delay w/ Busy Loop
+Delay = 8 ms
+
