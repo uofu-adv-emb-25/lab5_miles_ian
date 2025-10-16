@@ -2,7 +2,7 @@
 set(execName "program")
 
 add_executable(${execName}
-    task_delay.c
+    timer.c
     )
 
 pico_set_program_name(${execName} "program")
