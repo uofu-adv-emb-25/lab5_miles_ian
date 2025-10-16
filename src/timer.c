@@ -7,6 +7,10 @@ int toggle = 1;
 bool timer_callback(__unused struct repeating_timer *t)
 {
     toggle = !toggle;
+    for (volatile int i=0; i < 2000000; i++)
+    {
+        __nop();
+    }
     gpio_put(OUT_PIN, toggle);
     return true;
 }

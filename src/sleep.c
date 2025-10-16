@@ -13,6 +13,7 @@ int main(void)
     while (true) {
         toggle = !toggle;
         gpio_put(OUT_PIN, toggle);
+        for (int i=0; i < 2000000; i++);
         sleep_ms(DELAY_MS);
     }
 }
