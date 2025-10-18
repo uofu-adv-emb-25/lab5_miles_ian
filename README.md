@@ -1,47 +1,75 @@
+# Jitter and Drift Measurements
+
 ## Approach to Calculations
-Jitter was calculated as the deviation of the measured signal's period from the ideal period.
 
-Drift was calculated by projecting the difference in signal periods over the span of an hour:
-We first calculated the difference between ideal periods/hr and measured periods/hr, then we translated these differences to percentages representing how much faster or slower our measured signal was compared to the ideal.
+Jitter was calculated as how much the measured signal’s period differed from the ideal period.
 
-Our ideal period was set to be 20ms across all experiments.
-For activity 1, we used a no-op for loop with 2 million iterations to introduce differences in signal outputs.
-For activity 2, we used a no-op for loop with 200 thousand iterations to introduce differences in signal output.
+Drift was found by looking at how much that difference would add up over an hour.  
+Basically, we compared how many periods should happen per hour (ideal) versus how many actually did (measured), and then turned that into a percentage showing how much faster or slower the signal ran.
 
-We used our oscilloscope's measured statistics and outputted these as .csv files to gather/process data. It appears that some very small non-zero values were rounded or truncated to zero - these are indicated by "~0". 
+- **Ideal period:** 20 ms (used for all tests)
+- **Activity 1:** No-op for loop with **2 million iterations**
+- **Activity 2:** No-op for loop with **200 thousand iterations**
+- **Data collection:** We used the oscilloscope’s built-in stats feature and exported the data as `.csv` and `.png` files to analyze later.
+
+Some really tiny non-zero values were rounded or cut off to zero. Those are shown as “~0”.
+
+---
 
 ## Results
-### task_delay w/o Busy Loop
-Jitter: ~0 ms
-Drift: 0.0017% slower
 
-### task_delay w/ Busy Loop
-Jitter: 128.0004 ms
-Drift: 86.5% slower
+### task_delay (no busy loop)
 
+#### Note: We did not collect images for this, our numbers were taken from the oscilloscope though and were extremely similar to sleep.c 's measurements
+- **Jitter:** ~0 ms  
+- **Drift:** 0.0017% slower  
 
-### sleep w/o Busy Loop
-Jitter: ~0 ms
-Drift: 0.0017% slower
+### task_delay (with busy loop)
+- **Jitter:** 128.0004 ms  
+- **Drift:** 86.5% slower  
 
-### sleep w/ Busy Loop
-Jitter: 128.0004 ms
-Drift: 86.5% slower
+---
 
+### sleep (no busy loop)
+- **Jitter:** ~0 ms  
+- **Drift:** 0.0017% slower  
 
-### timer w/o Busy Loop
-Jitter: ~0 ms
-Drift: 0.0017% slower
+![sleep without busy loop](resources/sleep_no_loop.png)
 
-### timer w/ Busy Loop
-Jitter: 332.0104 ms
-Drift: 94.32% slower
+### sleep (with busy loop)
+- **Jitter:** 128.0004 ms  
+- **Drift:** 86.5% slower  
 
+![sleep with busy loop](resources/sleep_with_loop.png)
 
+---
 
-### gpio_interrupt w/o Busy Loop
-The delay between the sync signal and the board output was negligable (~0 ms)
+### timer (no busy loop)
+- **Jitter:** ~0 ms  
+- **Drift:** 0.0017% slower  
 
-### gpio_interrupt w/ Busy Loop
-Delay: 8 ms
+![timer without busy loop](resources/timer_no_loop.png)
 
+---
+
+### timer (with busy loop)
+- **Jitter:** 332.0104 ms  
+- **Drift:** 94.32% slower  
+
+![timer with busy loop](resources/timer_with_loop.png)
+
+---
+
+### gpio_interrupt (no busy loop)
+- The delay between the sync signal and the board output was basically zero (~0 ms).
+
+![gpio_interrupt without busy loop](resources/activity2_no_loop.png)
+
+---
+
+### gpio_interrupt (with busy loop)
+#### Note: see the `Dly` statistic for our delay measurement from the oscilloscope
+
+- **Delay:** ~8 ms  
+
+![gpio_interrupt with busy loop](resources/activity2_busy_loop.png)
