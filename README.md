@@ -50,8 +50,6 @@ Some really tiny non-zero values were rounded or cut off to zero. Those are show
 
 ![timer without busy loop](resources/timer_no_loop.png)
 
----
-
 ### timer (with busy loop)
 - **Jitter:** 332.0104 ms  
 - **Drift:** 94.32% slower  
@@ -64,8 +62,6 @@ Some really tiny non-zero values were rounded or cut off to zero. Those are show
 - The delay between the sync signal and the board output was basically zero (~0 ms).
 
 ![gpio_interrupt without busy loop](resources/activity2_no_loop.png)
-
----
 
 ### gpio_interrupt (with busy loop)
 #### Note: see the `Dly` statistic for our delay measurement from the oscilloscope
